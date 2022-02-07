@@ -33,6 +33,12 @@ exports.createSchemaCustomization = ({ actions }) => {
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage, createRedirect } = actions;
 
+  createRedirect({
+    fromPath: '/instant-observability/',
+    toPath: 'https://newrelic.com/instant-observability',
+    isPermanent: true,
+  });
+
   const result = await graphql(`
     query {
       allMdx(filter: { fileAbsolutePath: { regex: "/src/markdown-pages/" } }) {
@@ -203,9 +209,6 @@ exports.onCreatePage = async ({ page, actions }) => {
   const { createPage, deletePage } = actions;
   const oldPage = { ...page };
 
-  if (page.path === '/instant-observability/') {
-    page.context.layout = 'QuickStartLayout';
-  }
   deletePage(oldPage);
   createPage(page);
 };
