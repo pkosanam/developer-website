@@ -34,7 +34,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage, createRedirect } = actions;
 
   createRedirect({
-    fromPath: '/instant-observability/',
+    fromPath: '/instant-observability*',
     toPath: 'https://newrelic.com/instant-observability',
     isPermanent: true,
   });
@@ -209,8 +209,12 @@ exports.onCreatePage = async ({ page, actions }) => {
   const { createPage, deletePage } = actions;
   const oldPage = { ...page };
 
-  deletePage(oldPage);
-  createPage(page);
+  if (page.path.includes('instant-observability')) {
+    deletePage(oldPage);
+  } else {
+    deletePage(oldPage);
+    createPage(page);
+  }
 };
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
