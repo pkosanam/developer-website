@@ -160,22 +160,6 @@ The 'path' property on frontmatter is deprecated and has no effect. URLs are now
     });
   });
 
-  allQuickstarts.edges.forEach(({ node }) => {
-    const {
-      fields: { slug },
-      id,
-    } = node;
-
-    createPage({
-      path: path.join(slug, '/'),
-      component: path.resolve('./src/templates/QuickstartDetails.js'),
-      context: {
-        id,
-        layout: 'QuickStartLayout',
-      },
-    });
-  });
-
   allNewRelicSdkComponent.edges.forEach(({ node }) => {
     const {
       fields: { slug },
@@ -209,12 +193,8 @@ exports.onCreatePage = async ({ page, actions }) => {
   const { createPage, deletePage } = actions;
   const oldPage = { ...page };
 
-  if (page.path.includes('instant-observability')) {
-    deletePage(oldPage);
-  } else {
-    deletePage(oldPage);
-    createPage(page);
-  }
+  deletePage(oldPage);
+  createPage(page);
 };
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
