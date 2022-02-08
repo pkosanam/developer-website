@@ -33,14 +33,14 @@ exports.createSchemaCustomization = ({ actions }) => {
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage, createRedirect } = actions;
 
-  createRedirect({
-    fromPath: '/instant-observability/',
-    toPath: 'https://newrelic.com/instant-observability',
-  });
+  // createRedirect({
+  //   fromPath: '/instant-observability/',
+  //   toPath: 'https://newrelic.com/instant-observability',
+  // });
 
   createRedirect({
     fromPath: '/instant-observability/*',
-    toPath: 'https://newrelic.com/instant-observability',
+    toPath: 'https://www-release.newrelic.com/instant-observability/*',
   });
 
   const result = await graphql(`
