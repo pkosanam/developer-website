@@ -38,6 +38,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     toPath: 'https://newrelic.com/instant-observability',
   });
 
+  createRedirect({
+    fromPath: '/instant-observability/*',
+    toPath: 'https://newrelic.com/instant-observability',
+  });
+
   const result = await graphql(`
     query {
       allMdx(filter: { fileAbsolutePath: { regex: "/src/markdown-pages/" } }) {
