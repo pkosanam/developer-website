@@ -34,7 +34,13 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage, createRedirect } = actions;
 
   createRedirect({
-    fromPath: '/instant-observability*',
+    fromPath: '/instant-observability/',
+    toPath: 'https://newrelic.com/instant-observability',
+    isPermanent: true,
+  });
+
+  createRedirect({
+    fromPath: '/instant-observability/*',
     toPath: 'https://newrelic.com/instant-observability',
     isPermanent: true,
   });
