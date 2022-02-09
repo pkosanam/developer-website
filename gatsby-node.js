@@ -33,14 +33,11 @@ exports.createSchemaCustomization = ({ actions }) => {
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage, createRedirect } = actions;
 
-  // createRedirect({
-  //   fromPath: '/instant-observability/',
-  //   toPath: 'https://newrelic.com/instant-observability',
-  // });
-
   createRedirect({
-    fromPath: '/instant-observability/*',
-    toPath: 'https://www-release.newrelic.com/instant-observability/*',
+    fromPath: '/instant-observability/',
+    toPath: 'https://www-release.newrelic.com/instant-observability',
+    redirectInBrowser: true,
+    isPermanent: true,
   });
 
   const result = await graphql(`
@@ -161,6 +158,22 @@ The 'path' property on frontmatter is deprecated and has no effect. URLs are now
           ? `${slug}/*`
           : undefined,
       },
+    });
+  });
+
+  allQuickstarts.edges.forEach(({ node }) => {
+    const {
+      fields: { slug },
+      id,
+    } = node;
+
+    console.log(slug);
+
+    createRedirect({
+      fromPath: path.join(slug, '/'),
+      toPath: path.join('https://www-release.newrelic.com', slug, '/'),
+      redirectInBrowser: true,
+      isPermanent: true,
     });
   });
 
